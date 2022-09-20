@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
 
     private bool isFacingLeft = false;
+    private bool gravityTop = false;
 
     private Vector3 velocity;
     public float smoothTime = 0.2f;
@@ -53,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
             isJumpPressed = true;
             animator.SetTrigger("DoJump");
         }
+
+        ChangeGravity();
 
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetFloat("Speed", Mathf.Abs(moveDirection));
@@ -92,7 +95,14 @@ public class PlayerMovement : MonoBehaviour
 
         if(isJumpPressed == true && isGrounded == true)
         {
-            rigidBody2D.AddForce(new Vector2(0f, jumpForce * 100f));
+            if(gravityTop == true)
+            {
+                rigidBody2D.AddForce(new Vector2(0f, jumpForce * -100f));
+            }
+            else if(gravityTop == false)
+            {
+                rigidBody2D.AddForce(new Vector2(0f, jumpForce * 100f));
+            }
         }
 
         if(moveDirection.x > 0f && isFacingLeft == true)
@@ -128,5 +138,27 @@ public class PlayerMovement : MonoBehaviour
     public void SetNewMovementSpeed(float multiplyBy)
     {
         movementSpeed *= multiplyBy;
+    }
+
+    public void ChangeGravity()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded == false)
+        {
+            rigidBody2D.gravityScale *= -1;
+            Rotation();
+        }
+    }
+
+    private void Rotation()
+    {
+        if(gravityTop == false)
+        {
+            transform.eulerAngles = new Vector3(0, 180f, 180f);
+        }
+        else
+        {
+            transform.eulerAngles = Vector3.zero;
+        }
+        gravityTop = !gravityTop;
     }
 }
