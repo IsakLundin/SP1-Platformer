@@ -83,15 +83,17 @@ public class PlayerMovement : MonoBehaviour
             verticalVelocity = rigidBody2D.velocity.y;
         }
 
-        calculatedMovement.x = movementSpeed * 100f * moveDirection * Time.fixedDeltaTime;
-        calculatedMovement.y = verticalVelocity;
+        calculatedMovement.x = movementSpeed * moveDirection;
         Move(calculatedMovement, isJumpPressed);
         isJumpPressed = false;
     }
 
     private void Move(Vector3 moveDirection, bool isJumpPressed)
     {
-        rigidBody2D.velocity = Vector3.SmoothDamp(rigidBody2D.velocity, moveDirection, ref velocity, smoothTime);
+        // Only modify X, leave Y alone
+        Vector3 newPos = Vector3.SmoothDamp(rigidBody2D.velocity, moveDirection, ref velocity, smoothTime);
+        newPos.y = rigidBody2D.velocity.y;
+        rigidBody2D.velocity = newPos;
 
         if(isJumpPressed == true && isGrounded == true)
         {
