@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rigidBody2D;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private ParticleSystem gravityUpParticles;
+    [SerializeField] private ParticleSystem gravityDownParticles;
     private Animator animator;
 
     public GameObject groundCheck;
@@ -156,10 +158,12 @@ public class PlayerMovement : MonoBehaviour
         if(gravityTop == false)
         {
             transform.eulerAngles = new Vector3(0, 180f, 180f);
+            gravityUpParticles.Play();
         }
         else
         {
             transform.eulerAngles = Vector3.zero;
+            gravityDownParticles.Play();
         }
         gravityTop = !gravityTop;
     }
