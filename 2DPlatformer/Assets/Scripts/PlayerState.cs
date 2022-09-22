@@ -13,6 +13,8 @@ public class PlayerState : MonoBehaviour
     public ParticleSystem deathParticles;
     [SerializeField] private SpriteRenderer playerSpriteRenderer;
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip deathClip;
     private float timer;
     public float respawnTimer = 1f;
     private bool playerDead = false;
@@ -67,6 +69,7 @@ public class PlayerState : MonoBehaviour
         playerSpriteRenderer.enabled = false;
         animator.enabled = false;
         deathParticles.Play();
+        audioSource.PlayOneShot(deathClip);
         rigidBody2D.bodyType = RigidbodyType2D.Static;
         coll2D.enabled = false;
         playerDead = true;
