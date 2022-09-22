@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private ParticleSystem gravityUpParticles;
     [SerializeField] private ParticleSystem gravityDownParticles;
     private Animator animator;
+    private TrailRenderer tR;
 
     public GameObject groundCheck;
     private bool isGrounded;
@@ -27,6 +28,15 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     public float smoothTime = 0.2f;
 
+    private bool canDash = true;
+    private bool isDashing = false;
+    private bool isPressingUp = false;
+    private bool directionalDash = false;
+    [SerializeField] private float dashPower;
+    [SerializeField] private float directionalDashPower;
+    [SerializeField] private float dashTime;
+    [SerializeField] private float dashCooldown;
+
     [SerializeField] private LayerMask whatIsGround;
 
     // Start is called before the first frame update
@@ -36,11 +46,17 @@ public class PlayerMovement : MonoBehaviour
         rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         animator = gameObject.GetComponent<Animator>();
+        tR = GetComponent<TrailRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDashing)
+        {
+            return;
+        }
+        
         moveDirection = Input.GetAxis("Horizontal");
         /*if(Mathf.Abs(moveDirection) > 0.05)
         {
@@ -61,10 +77,46 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetFloat("Speed", Mathf.Abs(moveDirection));
+
+        
+        if (Input.GetKeyDown(KeyCode.LeftControl) && canDash)
+        {
+            if (gravityTop)
+            {
+                if (Input.GetAxis("Horizontal") != 0 && Input.GetKey(KeyCode.S))
+                {
+                    directionalDash = true;
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    isPressingUp = true;
+                }
+                StartCoroutine(Dash());
+            }
+            else
+            {
+                if (Input.GetAxis("Horizontal") != 0 && Input.GetKey(KeyCode.W))
+                {
+                    directionalDash = true;
+                }
+                else if (Input.GetKey(KeyCode.W))
+                {
+                    isPressingUp = true;
+                }
+                StartCoroutine(Dash());
+            }
+            
+        }
+        directionalDash = false;
+        isPressingUp = false;
     }
 
     private void FixedUpdate()
     {
+        if (isDashing)
+        {
+            return;
+        }
         isGrounded = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.transform.position, 0.2f, whatIsGround);
 
@@ -166,5 +218,51 @@ public class PlayerMovement : MonoBehaviour
             gravityDownParticles.Play();
         }
         gravityTop = !gravityTop;
+    }
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        float gravity = rigidBody2D.gravityScale;
+        rigidBody2D.gravityScale = 0f;
+        if (isPressingUp)
+        {
+            if (gravityTop)
+                rigidBody2D.velocity = new Vector2(0, transform.localScale.y * dashPower * -1);
+            else
+                rigidBody2D.velocity = new Vector2(0, transform.localScale.y * dashPower);
+        }
+        else if (directionalDash)
+        {
+            if (isFacingLeft)
+            {
+                if (gravityTop)
+                    rigidBody2D.velocity = new Vector2(Mathf.Sqrt(transform.localScale.x * dashPower) * -1 * directionalDashPower, Mathf.Sqrt(transform.localScale.y * dashPower) * -1 * directionalDashPower);
+                else
+                    rigidBody2D.velocity = new Vector2(Mathf.Sqrt(transform.localScale.x * dashPower) * -1 * directionalDashPower, Mathf.Sqrt(transform.localScale.y * dashPower) * directionalDashPower);
+            }
+            else
+            {
+                if (gravityTop)
+                    rigidBody2D.velocity = new Vector2(Mathf.Sqrt(transform.localScale.x * dashPower) * directionalDashPower, Mathf.Sqrt(transform.localScale.y * dashPower) * -1 * directionalDashPower);
+                else
+                    rigidBody2D.velocity = new Vector2(Mathf.Sqrt(transform.localScale.x * dashPower) * directionalDashPower, Mathf.Sqrt(transform.localScale.y * dashPower) * directionalDashPower);
+            }     
+        }
+        else if (isFacingLeft)
+        {
+            rigidBody2D.velocity = new Vector2(transform.localScale.x * dashPower * -1, 0);
+        }
+        else
+        {
+            rigidBody2D.velocity = new Vector2(transform.localScale.x * dashPower, 0);
+        }
+        tR.emitting = true;
+        yield return new WaitForSeconds(dashTime);
+        rigidBody2D.gravityScale = gravity;
+        isDashing = false;
+        tR.emitting = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 }
