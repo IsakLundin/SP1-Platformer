@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
 
     private bool isFacingLeft = false;
-    private bool gravityTop = false;
+    public bool gravityTop = false;
 
     private Vector3 velocity;
     public float smoothTime = 0.2f;
