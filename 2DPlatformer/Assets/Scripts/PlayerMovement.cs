@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rigidBody2D;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private ParticleSystem gravityUpParticles;
+    [SerializeField] private ParticleSystem gravityDownParticles;
     private Animator animator;
     private TrailRenderer tR;
 
@@ -21,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
 
     private bool isFacingLeft = false;
-    private bool gravityTop = false;
+    public bool gravityTop = false;
 
     private Vector3 velocity;
     public float smoothTime = 0.2f;
@@ -135,15 +137,17 @@ public class PlayerMovement : MonoBehaviour
             verticalVelocity = rigidBody2D.velocity.y;
         }
 
-        calculatedMovement.x = movementSpeed * 100f * moveDirection * Time.fixedDeltaTime;
-        calculatedMovement.y = verticalVelocity;
+        calculatedMovement.x = movementSpeed * moveDirection;
         Move(calculatedMovement, isJumpPressed);
         isJumpPressed = false;
     }
 
     private void Move(Vector3 moveDirection, bool isJumpPressed)
     {
-        rigidBody2D.velocity = Vector3.SmoothDamp(rigidBody2D.velocity, moveDirection, ref velocity, smoothTime);
+        // Only modify X, leave Y alone
+        Vector3 newPos = Vector3.SmoothDamp(rigidBody2D.velocity, moveDirection, ref velocity, smoothTime);
+        newPos.y = rigidBody2D.velocity.y;
+        rigidBody2D.velocity = newPos;
 
         if(isJumpPressed == true && isGrounded == true)
         {
@@ -206,10 +210,12 @@ public class PlayerMovement : MonoBehaviour
         if(gravityTop == false)
         {
             transform.eulerAngles = new Vector3(0, 180f, 180f);
+            gravityUpParticles.Play();
         }
         else
         {
             transform.eulerAngles = Vector3.zero;
+            gravityDownParticles.Play();
         }
         gravityTop = !gravityTop;
     }

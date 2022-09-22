@@ -8,7 +8,7 @@ public class PlayerKillZone : MonoBehaviour
     {
         if(collision.CompareTag("Player") == true)
         {
-            collision.gameObject.GetComponent<PlayerState>().Respawn();
+            collision.gameObject.GetComponent<PlayerState>().PlayerDie();
         }
     }
 }
