@@ -14601,6 +14601,10 @@ MonoBehaviour:
   jumpForce: 6
   gravityTop: 0
   smoothTime: 0.05
+  dashPower: 0
+  directionalDashPower: 0
+  dashTime: 0
+  dashCooldown: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
