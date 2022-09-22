@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField] private ParticleSystem gravityUpParticles;
     [SerializeField] private ParticleSystem gravityDownParticles;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip dashClip;
+    [SerializeField] private AudioClip gravitySwitchClip;
+    [SerializeField] private AudioClip jumpClip;
     private Animator animator;
     private TrailRenderer tR;
 
@@ -71,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumpPressed = true;
             animator.SetTrigger("DoJump");
+            audioSource.PlayOneShot(jumpClip);
         }
 
         ChangeGravity();
@@ -201,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded == false)
         {
             rigidBody2D.gravityScale *= -1;
+            audioSource.PlayOneShot(gravitySwitchClip);
             Rotation();
         }
     }
@@ -257,6 +263,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rigidBody2D.velocity = new Vector2(transform.localScale.x * dashPower, 0);
         }
+        audioSource.PlayOneShot(dashClip);
         tR.emitting = true;
         yield return new WaitForSeconds(dashTime);
         rigidBody2D.gravityScale = gravity;
