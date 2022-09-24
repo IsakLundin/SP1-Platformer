@@ -19,7 +19,10 @@ public class EnemyKillbox : MonoBehaviour
         {
             if(collision.gameObject.GetComponent<PlayerMovement>().isFalling() == true)
             {
-                gameObject.GetComponentInParent<Enemy_SlimeMovement>().KillMe();
+                if (gameObject.transform.parent.CompareTag("EnemySlime"))
+                    gameObject.GetComponentInParent<Enemy_SlimeMovement>().KillMe();
+                else if (gameObject.transform.parent.CompareTag("EnemyFly"))
+                    gameObject.GetComponentInParent<Enemy_FlyMovement>().KillMe();
                 //Destroy(gameObjectToKill);
             }
         }
