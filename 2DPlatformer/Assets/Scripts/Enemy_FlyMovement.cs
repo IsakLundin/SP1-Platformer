@@ -22,6 +22,7 @@ public class Enemy_FlyMovement : MonoBehaviour
     void Update()
     {
         anim.SetBool("IsAlive", isAlive);
+
         if (target)
         {
             Vector3 direction = (target.position - transform.position).normalized;
