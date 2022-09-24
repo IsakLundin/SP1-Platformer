@@ -14577,7 +14577,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 3.5
   m_Material: {fileID: 0}
@@ -14604,8 +14604,8 @@ MonoBehaviour:
   gravitySwitchClip: {fileID: 8300000, guid: 3fa7c8b159bda674bb4953dd28c8126b, type: 3}
   jumpClip: {fileID: 8300000, guid: 14d7dc16cd721604db0d950d1b49f269, type: 3}
   groundCheck: {fileID: 197583901721477207}
-  movementSpeed: 5
-  jumpForce: 6
+  movementSpeed: 8
+  jumpForce: 8
   gravityTop: 0
   smoothTime: 0.05
   dashPower: 15
