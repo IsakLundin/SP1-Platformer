@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_FlyTargetRange : MonoBehaviour
 {
-    [SerializeField] private Transform startPos;
+    public Transform startPos;
 
     private void Start()
     {
