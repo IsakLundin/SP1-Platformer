@@ -7,6 +7,8 @@ public class Enemy_FlyMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5;
     private Rigidbody2D rb;
     private Animator anim;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip deathClip;
 
     private bool isAlive = true;
     private bool isFacingRight;
@@ -70,6 +72,7 @@ public class Enemy_FlyMovement : MonoBehaviour
     {
         rb.gravityScale = 1;
         isAlive = false;
+        audioSource.PlayOneShot(deathClip);
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Vector2 killForce = new Vector2(moveDirection.x, 4);
         rb.AddForce(moveDirection, ForceMode2D.Impulse);

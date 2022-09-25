@@ -10,6 +10,8 @@ public class Enemy_SlimeMovement : MonoBehaviour
 
     Rigidbody2D rigidBody2D;
     private Animator animator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip deathClip;
 
     public GameObject groundCheck;
 
@@ -86,6 +88,7 @@ public class Enemy_SlimeMovement : MonoBehaviour
     public void KillMe()
     {
         isAlive = false;
+        audioSource.PlayOneShot(deathClip);
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         Vector2 killForce = new Vector2(movementDirection, 4f);
         rigidBody2D.AddForce(killForce, ForceMode2D.Impulse);
