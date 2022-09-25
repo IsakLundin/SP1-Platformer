@@ -183,7 +183,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 326
+        y: 325
         width: 66
         height: 93
       alignment: 7
@@ -287,8 +287,8 @@ TextureImporter:
       name: PlayerSpriteSheet_Walk_8
       rect:
         serializedVersion: 2
-        x: 141
-        y: 233
+        x: 143
+        y: 231
         width: 71
         height: 93
       alignment: 7
@@ -346,6 +346,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerSpriteSheet_Walk_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 49
+        width: 240
+        height: 463
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebf09c2d32b75874e85b1bc84816c3a3
+      internalID: 1737161708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerSpriteSheet_Walk_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 143
+        width: 215
+        height: 369
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0104e2dd907c214585539a8449b3979
+      internalID: -437308198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -357,6 +399,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      PlayerSpriteSheet_Walk_12: -437308198
       PlayerSpriteSheet_Walk_3: -1827528065
       PlayerSpriteSheet_Walk_1: 1461934066
       PlayerSpriteSheet_Walk_9: -138706758

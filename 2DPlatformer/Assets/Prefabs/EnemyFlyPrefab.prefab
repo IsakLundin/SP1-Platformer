@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 3283125570580585894}
   - component: {fileID: 3283125570580585895}
   - component: {fileID: 3283125570580585892}
+  - component: {fileID: 1236689140286832883}
   m_Layer: 0
   m_Name: EnemyFlyPrefab
   m_TagString: EnemyFly
@@ -195,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   target: {fileID: 0}
+  startPos: {fileID: 0}
 --- !u!50 &3283125570580585895
 Rigidbody2D:
   serializedVersion: 4
@@ -242,6 +244,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0285715, y: 0.51428574}
   m_EdgeRadius: 0
+--- !u!114 &1236689140286832883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283125570580585898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a72102ce6e47bb4591d2afe41b7acf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!1 &3283125571260516903
 GameObject:
   m_ObjectHideFlags: 0

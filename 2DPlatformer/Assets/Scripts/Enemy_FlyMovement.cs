@@ -12,16 +12,19 @@ public class Enemy_FlyMovement : MonoBehaviour
     private bool isFacingRight;
 
     public Transform target;
+    [SerializeField] private Transform startPos;
     Vector2 moveDirection;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        startPos = GetComponentInChildren<Enemy_FlyTargetRange>().startPos;
     }
 
     void Update()
     {
         anim.SetBool("IsAlive", isAlive);
+        
 
         if (target)
         {
@@ -40,6 +43,8 @@ public class Enemy_FlyMovement : MonoBehaviour
             scale.x = 1;
             transform.localScale = scale;
         }
+        if (isAlive)
+            rb.velocity = Vector2.zero;
     }
 
     private void FixedUpdate()
@@ -48,15 +53,15 @@ public class Enemy_FlyMovement : MonoBehaviour
         {
             if (target)
             {
-                rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * moveSpeed;
-                if (rb.velocity.x > 0)
-                {
-                    isFacingRight = true;
-                }
-                else
-                {
+                transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+
+                if (target.position.x - transform.position.x < 0)
                     isFacingRight = false;
-                }
+                else
+                    isFacingRight = true;
+
+                if (target == GetComponentInChildren<Enemy_FlyTargetRange>().startPos && transform.position == target.position)
+                    isFacingRight = false;
             }
         }
     }
