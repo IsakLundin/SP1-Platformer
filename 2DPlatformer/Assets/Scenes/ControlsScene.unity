@@ -434,7 +434,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Left control - directional dash
+  m_Text: Left shift - directional dash
 --- !u!222 &489040064
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1008,7 +1008,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Left Shift in air - gravity change
+  m_Text: K in air - gravity change
 --- !u!222 &1570445283
 CanvasRenderer:
   m_ObjectHideFlags: 0
