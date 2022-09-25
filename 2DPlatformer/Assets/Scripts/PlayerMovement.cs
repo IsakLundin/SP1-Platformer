@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(moveDirection));
 
         
-        if (Input.GetKeyDown(KeyCode.LeftControl) && canDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             if (gravityTop)
             {
@@ -203,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeGravity()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded == false)
+        if(Input.GetKeyDown(KeyCode.K) && isGrounded == false)
         {
             rigidBody2D.gravityScale *= -1;
             audioSource.PlayOneShot(gravitySwitchClip);
