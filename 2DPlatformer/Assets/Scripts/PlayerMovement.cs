@@ -75,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumpPressed = true;
             animator.SetTrigger("DoJump");
-            audioSource.PlayOneShot(jumpClip);
         }
 
         ChangeGravity();
@@ -156,7 +155,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(isJumpPressed == true && isGrounded == true)
         {
-            if(gravityTop == true)
+            audioSource.PlayOneShot(jumpClip);
+            if (gravityTop == true)
             {
                 rigidBody2D.AddForce(new Vector2(0f, jumpForce * -100f));
             }
