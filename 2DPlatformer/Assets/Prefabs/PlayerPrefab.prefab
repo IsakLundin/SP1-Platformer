@@ -14611,7 +14611,7 @@ MonoBehaviour:
   dashPower: 15
   directionalDashPower: 2.5
   dashTime: 0.2
-  dashCooldown: 2
+  dashCooldown: 0.5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
